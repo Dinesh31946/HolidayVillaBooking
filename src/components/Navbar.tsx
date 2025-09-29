@@ -26,11 +26,11 @@ const Navbar = () => {
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <MapPin className="h-8 w-8 text-sky-500" />
-            <span className="text-xl font-bold text-gray-900">Seven Heaven Stays</span>
+            <span className="font-poppins text-2xl font-bold bg-gradient-to-r from-sky-500 to-teal-500 bg-clip-text text-transparent drop-shadow-lg">SevenHeavenStays</span>
           </Link>
 
           <div className="hidden md:flex space-x-8">

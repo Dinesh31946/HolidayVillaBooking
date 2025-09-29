@@ -1,30 +1,23 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const locations = [
   {
     id: 1,
-    name: 'Santorini, Greece',
-    image: 'https://images.pexels.com/photos/161901/santorini-travel-greece-island-161901.jpeg',
-    highlight: 'Cliffside villas with stunning sunset views'
+    name: 'Lonavala',
+    image: '/images/lonavala-1.jpg',
+    highlight: 'Scenic hill station with breathtaking valley views.'
   },
   {
     id: 2,
-    name: 'Bali, Indonesia',
-    image: 'https://images.pexels.com/photos/2474690/pexels-photo-2474690.jpeg',
-    highlight: 'Tropical paradise with rice terrace vistas'
+    name: 'Alibuag',
+    image: '/images/alibaug-1.jpg',
+    highlight: 'Coastal charm with sun-kissed beaches and historic forts'
   },
   {
     id: 3,
-    name: 'Tuscany, Italy',
-    image: 'https://images.pexels.com/photos/1797505/pexels-photo-1797505.jpeg',
-    highlight: 'Rolling hills and vineyard estates'
-  },
-  {
-    id: 4,
-    name: 'Maldives',
-    image: 'https://images.pexels.com/photos/2725675/pexels-photo-2725675.jpeg',
-    highlight: 'Overwater bungalows in crystal clear lagoons'
+    name: 'Mahabaleshwar',
+    image: '/images/mahabaleshwar.jpg',
+    highlight: 'Lush green hills and famous strawberry farms.'
   }
 ];
 
@@ -46,7 +39,7 @@ const VillaLocations = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           {locations.map((location, index) => (
             <motion.div
               key={location.id}

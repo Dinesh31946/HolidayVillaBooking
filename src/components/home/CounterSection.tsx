@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const CounterSection = () => {
-  const [counts, setCounts] = useState({ visitors: 0, villas: 0, countries: 0, reviews: 0 });
+  const [counts, setCounts] = useState({ visitors: 0, villas: 0, reviews: 0 });
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
 
   const finalCounts = {
     visitors: 15000,
-    villas: 150,
-    countries: 25,
+    villas: 3,
     reviews: 4.9
   };
 
@@ -28,7 +27,6 @@ const CounterSection = () => {
           setCounts({
             visitors: Math.floor(finalCounts.visitors * progress),
             villas: Math.floor(finalCounts.villas * progress),
-            countries: Math.floor(finalCounts.countries * progress),
             reviews: Math.min(finalCounts.reviews, (finalCounts.reviews * progress))
           });
 
@@ -58,11 +56,6 @@ const CounterSection = () => {
       suffix: '+'
     },
     {
-      number: counts.countries.toString(),
-      label: 'Countries',
-      suffix: ''
-    },
-    {
       number: counts.reviews.toFixed(1),
       label: 'Average Rating',
       suffix: '/5'
@@ -87,7 +80,7 @@ const CounterSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="flex flex-wrap justify-between">
           {stats.map((stat, index) => (
             <motion.div
               key={index}

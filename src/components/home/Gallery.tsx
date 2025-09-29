@@ -2,11 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const galleryImages = [
-  'https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg',
-  'https://images.pexels.com/photos/2474690/pexels-photo-2474690.jpeg',
-  'https://images.pexels.com/photos/1797505/pexels-photo-1797505.jpeg',
-  'https://images.pexels.com/photos/2725675/pexels-photo-2725675.jpeg',
-  'https://images.pexels.com/photos/161901/santorini-travel-greece-island-161901.jpeg'
+  '/images/lonavala/lanavala-7.jpeg',
+  '/images/lonavala/lanavala-2.jpeg',
+  '/images/lonavala/lanavala-3.jpeg',
 ];
 
 const Gallery = () => {
