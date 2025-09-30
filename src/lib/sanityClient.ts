@@ -35,7 +35,7 @@ export function urlFor(source: SanityImageSource) {
 export function getWriteClient() {
     // This function will only be called from the server (Node.js/Next.js/Serverless), 
     // where 'process.env' is defined.
-    const writeToken = process.env.SANITY_API_WRITE_TOKEN; 
+    const writeToken = import.meta.env.SANITY_API_WRITE_TOKEN; 
     if (!writeToken) {
         throw new Error("Server Error: SANITY_API_WRITE_TOKEN environment variable not set.");
     }
