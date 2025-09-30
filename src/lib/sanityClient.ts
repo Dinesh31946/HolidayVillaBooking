@@ -5,8 +5,8 @@ import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 // 1. Load credentials from environment variables (Correct for Vite)
-const projectId = import.meta.env.VITE_SANITY_PROJECT_ID;
-const dataset = import.meta.env.VITE_SANITY_DATASET;
+const projectId = process.env.VITE_SANITY_PROJECT_ID;
+const dataset = process.env.VITE_SANITY_DATASET;
 
 // Basic check for mandatory environment variables
 if (!projectId || !dataset) {
@@ -35,7 +35,7 @@ export function urlFor(source: SanityImageSource) {
 export function getWriteClient() {
     // This function will only be called from the server (Node.js/Next.js/Serverless), 
     // where 'process.env' is defined.
-    const writeToken = import.meta.env.SANITY_API_WRITE_TOKEN; 
+    const writeToken = process.env.SANITY_API_WRITE_TOKEN; 
     if (!writeToken) {
         throw new Error("Server Error: SANITY_API_WRITE_TOKEN environment variable not set.");
     }
