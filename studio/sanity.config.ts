@@ -10,6 +10,8 @@ export default defineConfig({
   projectId: '1gc6beip',
   dataset: 'production',
 
+  basePath: '/admin',
+
   plugins: [structureTool(), visionTool()],
 
   schema: {
