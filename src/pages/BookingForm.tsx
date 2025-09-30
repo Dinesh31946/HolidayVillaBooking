@@ -60,7 +60,7 @@ const BookingForm = () => {
 
     try {
       // Step 1: Send data to your API endpoint
-      const response = await fetch('api/submit-booking', {
+      const response = await fetch('/api/submit-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingPayload),
