@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build:frontend": "vite build",
-    "build:studio": "cd studio && sanity build",
+    "build:studio": "cd studio && npm run dev",
     "lint": "eslint .",
     "preview": "vite preview"
   },
