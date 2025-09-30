@@ -1,7 +1,7 @@
 // src/pages/api/submit-booking.js (or wherever your API route is)
 
 // ⭐ CRITICAL CHANGE: Import getWriteClient instead of client
-import { getWriteClient } from '../src/lib/sanityClient'; 
+import { getWriteClient } from '../src/lib/sanityClient';
 
 export default async function handler(req, res) {
   // Security check: Only allow POST requests
