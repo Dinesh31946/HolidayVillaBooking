@@ -4,7 +4,7 @@ import { Calendar, Users, Mail, Phone, User, Check, Utensils } from 'lucide-reac
 import { motion } from 'framer-motion';
 
 // 1. ⭐ ADD SANITY CLIENT IMPORT
-import { urlFor } from '../../sanityClient'; 
+import { urlFor } from '../lib/sanityClient'; 
 
 const BookingForm = () => {
   const location = useLocation();
@@ -60,7 +60,7 @@ const BookingForm = () => {
 
     try {
       // Step 1: Send data to your API endpoint
-      const response = await fetch('/api/submit-booking', {
+      const response = await fetch('api/submit-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingPayload),

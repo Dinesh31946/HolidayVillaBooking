@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "api", "sanityClient.ts"]
+  "include": ["src", "api", "src/lib/sanityClient.ts"]
 }
