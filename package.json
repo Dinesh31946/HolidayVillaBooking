@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:frontend": "vite build",
-    "build:studio": "cd studio && npm install && npm run build", 
-    "vercel-build": "npm run build:frontend && npm run build:studio",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
