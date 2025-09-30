@@ -8,8 +8,8 @@ function getWriteClient() {
     // Vercel/Node.js environment variables (must be set on Vercel)
     // NOTE: The access pattern uses process.env which is correct for Vercel.
     const writeToken = process.env.SANITY_API_WRITE_TOKEN;
-    const serverProjectId = process.env.SANITY_PROJECT_ID; 
-    const serverDataset = process.env.SANITY_DATASET;
+    const serverProjectId = process.env.VITE_SANITY_PROJECT_ID; 
+    const serverDataset = process.env.VITE_SANITY_DATASET;
 
     if (!serverProjectId || !serverDataset || !writeToken) {
         // Crucial error message for Vercel logs if variables are missing
