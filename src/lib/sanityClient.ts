@@ -4,9 +4,16 @@ import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
+
+// ⭐ CRITICAL FIX: Conditionally determine environment access
+const isServer = typeof window === 'undefined';
+
+// Use the appropriate global object based on the environment
+const env = isServer ? process.env : import.meta.env;
+
 // 1. Load credentials from environment variables (Correct for Vite)
-const projectId = import.meta.env.VITE_SANITY_PROJECT_ID;
-const dataset = import.meta.env.VITE_SANITY_DATASET;
+const projectId = env.VITE_SANITY_PROJECT_ID;
+const dataset = env.VITE_SANITY_DATASET;
 
 // Basic check for mandatory environment variables
 if (!projectId || !dataset) {
