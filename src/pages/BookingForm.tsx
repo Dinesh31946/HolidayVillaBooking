@@ -1,18 +1,18 @@
+// src/pages/BookingForm.tsx
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Calendar, Users, Mail, Phone, User, Check, Utensils } from 'lucide-react'; // Added Utensils
+import { Calendar, Users, Mail, Phone, User, Check, Utensils } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// 1. ⭐ ADD SANITY CLIENT IMPORT
 import { urlFor } from '../lib/sanityClient'; 
+
+// Assume other necessary types/interfaces are defined above
 
 const BookingForm = () => {
   const location = useLocation();
   const villa = location.state?.villa;
   const [isSubmitted, setIsSubmitted] = useState(false);
-  // ⭐ NEW STATE: To disable the button while submitting
   const [isSubmitting, setIsSubmitting] = useState(false); 
-  // ⭐ NEW STATE: To show error messages
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
@@ -32,7 +32,6 @@ const BookingForm = () => {
     });
   };
 
-  // ⭐ CRITICAL CHANGE: Making handleSubmit async and adding fetch logic
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!villa) {
@@ -50,7 +49,7 @@ const BookingForm = () => {
       guestPhone: formData.phone,
       checkInDate: formData.checkIn,
       checkOutDate: formData.checkOut,
-      numberOfGuests: parseInt(formData.guests), // Convert to number
+      numberOfGuests: parseInt(formData.guests), 
       foodPreference: formData.foodPreference,
       
       // Data needed for Sanity reference
@@ -59,22 +58,29 @@ const BookingForm = () => {
     };
 
     try {
-      // Step 1: Send data to your API endpoint
+      // ⭐ CRITICAL FIX: Use absolute path '/api/submit-booking' for Vercel Serverless Function
       const response = await fetch('/api/submit-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingPayload),
       });
 
-      // Step 2: Check if the API call was successful
+      // Check if the API call was successful
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Server error during booking submission.');
+        // ⭐ FIX: Robust error handling for non-JSON server responses (like Vercel 500 page)
+        let errorMessage = `Server Error: Status ${response.status} ${response.statusText}.`;
+        try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+        } catch (e) {
+            console.warn("Server response was non-JSON. Displaying status message.");
+        }
+        throw new Error(errorMessage);
       }
 
-      // Step 3: Success
+      // Success logic
       setIsSubmitted(true);
-      setFormData({ // Optional: clear form data on success
+      setFormData({ 
         name: '', email: '', phone: '', checkIn: '', checkOut: '', guests: '', foodPreference: 'without'
       });
     } catch (error: any) {
