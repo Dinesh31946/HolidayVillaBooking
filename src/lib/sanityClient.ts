@@ -5,8 +5,8 @@ import imageUrlBuilder from '@sanity/image-url';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 // 1. Load credentials from environment variables (Correct for Vite)
-const projectId = process.env.VITE_SANITY_PROJECT_ID;
-const dataset = process.env.VITE_SANITY_DATASET;
+const projectId = import.meta.env.VITE_SANITY_PROJECT_ID;
+const dataset = import.meta.env.VITE_SANITY_DATASET;
 
 // Basic check for mandatory environment variables
 if (!projectId || !dataset) {
