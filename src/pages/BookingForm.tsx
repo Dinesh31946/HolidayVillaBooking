@@ -4,7 +4,7 @@ import { Calendar, Users, Mail, Phone, User, Check, Utensils } from 'lucide-reac
 import { motion } from 'framer-motion';
 
 // 1. ⭐ ADD SANITY CLIENT IMPORT
-import { urlFor } from '../lib/sanityClient'; 
+import { urlFor } from '../../sanityClient'; 
 
 const BookingForm = () => {
   const location = useLocation();

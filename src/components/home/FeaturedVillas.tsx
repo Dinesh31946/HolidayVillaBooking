@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 // 1. Import BOTH client AND urlFor
-import { client, urlFor } from '../../lib/sanityClient';
+import { client, urlFor } from '../../../sanityClient';
 
 // Define the GROQ Query to fetch listing data
 const FEATURED_VILLAS_QUERY = `

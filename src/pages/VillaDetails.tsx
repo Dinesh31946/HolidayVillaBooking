@@ -5,7 +5,7 @@ import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { ChevronLeft, ChevronRight, Wifi, Car, Utensils, Waves, Calendar, Bed, Bath, Users, MapPin, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-import { client, urlFor } from '../lib/sanityClient'; 
+import { client, urlFor } from '../../sanityClient'; 
 
 // [GROQ Query and customComponents remain the same]
 const VILLA_DETAILS_QUERY = `
