@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build:frontend": "vite build",
+    "build:studio": "cd studio && npx sanity build --dest dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },
