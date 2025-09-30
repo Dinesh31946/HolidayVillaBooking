@@ -20,7 +20,7 @@ function App() {
           {/* 🛑 CRITICAL FIX HERE: Change the parameter name from :id to :slug */}
           <Route path="/villa/:slug" element={<VillaDetails />} /> 
           
-          <Route path="/booking" element={<BookingForm />} />
+          <Route path="/booking/:slug" element={<BookingForm />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
         </Routes>
