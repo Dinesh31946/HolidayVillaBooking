@@ -1,8 +1,20 @@
 {
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "includeFiles": [
+          "studio/dist/**", 
+          "[FRONTEND_BUILD_OUTPUT_FOLDER]/**" 
+        ]
+      }
+    }
+  ],
   "rewrites": [
     {
       "source": "/admin/(.*)",
-      "destination": "/studio/dist/index.html"
+      "destination": "/studio/dist/$1"
     },
     {
       "source": "/admin",
