@@ -1,55 +1,64 @@
 // src/lib/sanityClient.ts
 
 import { createClient } from '@sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
+import imageUrlBuilder from '@sanity/image-url'; 
+import { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder';
 import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
+// =====================================================================
+// 1. READ CLIENT (Vite/Browser Safe)
+//    - Uses import.meta.env for browser access (which Vite injects).
+//    - This code executes immediately on import, ensuring 'client' is defined.
+// =====================================================================
 
-// ⭐ CRITICAL FIX: Conditionally determine environment access
-const isServer = typeof window === 'undefined';
+// NOTE: We assume VITE_SANITY_PROJECT_ID and VITE_SANITY_DATASET are always 
+// available in the client bundle via Vite's process.
+const projectId = import.meta.env.VITE_SANITY_PROJECT_ID;
+const dataset = import.meta.env.VITE_SANITY_DATASET;
 
-// Use the appropriate global object based on the environment
-const env = isServer ? process.env : import.meta.env;
-
-// 1. Load credentials from environment variables (Correct for Vite)
-const projectId = env.VITE_SANITY_PROJECT_ID;
-const dataset = env.VITE_SANITY_DATASET;
-
-// Basic check for mandatory environment variables
 if (!projectId || !dataset) {
-  throw new Error("Sanity client failed to initialize: VITE_SANITY_PROJECT_ID or VITE_SANITY_DATASET is missing.");
+    // This check runs both during build and runtime.
+    console.error("Sanity initialization error: VITE_SANITY_PROJECT_ID or VITE_SANITY_DATASET is missing.");
 }
 
-// ⭐ CRITICAL FIX: Export a basic client for READ operations (for the front-end)
+// ⭐ FIX: Initialize the Read-Only Client immediately. This makes the export safe.
 export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion: '2024-01-01',
-  useCdn: true, // For fast public image and data fetching
-  // REMOVED: token: process.env.SANITY_API_WRITE_TOKEN, 
-   // The token should ONLY be injected into the server-side logic.
+    projectId,
+    dataset,
+    apiVersion: '2024-01-01',
+    useCdn: true, // For fast public image and data fetching
 });
 
-// 3. Export the Image URL Builder for displaying images
-const builder = imageUrlBuilder(client);
+// Initialize the Image Builder immediately.
+const builder: ImageUrlBuilder = imageUrlBuilder(client);
 
+// =====================================================================
+// 2. EXPORTS
+// =====================================================================
+
+// Export the image URL builder function
 export function urlFor(source: SanityImageSource) {
-  return builder.image(source);
+    return builder.image(source);
 }
 
-// ⭐ NEW EXPORT: Create a function to get the WRITE client (used ONLY by the API route)
-// This prevents the token from being loaded on the client-side.
+// 3. WRITE CLIENT (Vercel Serverless Safe)
+//    - This function uses process.env and is ONLY called by the API route.
+// =====================================================================
+
 export function getWriteClient() {
-    // This function will only be called from the server (Node.js/Next.js/Serverless), 
-    // where 'process.env' is defined.
-    const writeToken = process.env.SANITY_API_WRITE_TOKEN; 
-    if (!writeToken) {
-        throw new Error("Server Error: SANITY_API_WRITE_TOKEN environment variable not set.");
+    // Vercel/Node.js environment variables (must be set on Vercel)
+    const writeToken = process.env.SANITY_API_WRITE_TOKEN;
+    const serverProjectId = process.env.VITE_SANITY_PROJECT_ID; 
+    const serverDataset = process.env.VITE_SANITY_DATASET;
+
+    if (!serverProjectId || !serverDataset || !writeToken) {
+        // This error check is crucial for catching 500 errors in Vercel logs.
+        throw new Error("Server Error: Sanity environment variables (Project ID, Dataset, or Write Token) not set for the serverless function.");
     }
 
     return createClient({
-        projectId,
-        dataset,
+        projectId: serverProjectId,
+        dataset: serverDataset,
         apiVersion: '2024-01-01',
         useCdn: false, // Use false for writing
         token: writeToken,
