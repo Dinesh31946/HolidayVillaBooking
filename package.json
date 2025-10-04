@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build:studio && vite build",
     "build:studio": "cd studio && npm install && sanity build ../dist/studio -y",
     "lint": "eslint .",
     "preview": "vite preview"
