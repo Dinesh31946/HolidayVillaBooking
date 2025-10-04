@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:studio && vite build",
-    "build:studio": "cd studio && npm install && npx sanity build ../dist/studio -y",
+    "build:studio": "cd studio && npx sanity build ../dist/studio",
     "lint": "eslint .",
     "preview": "vite preview"
   },
